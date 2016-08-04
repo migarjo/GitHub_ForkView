@@ -1,12 +1,12 @@
 # GitHub_ForkView
 
-This is a PowerShell script to aid in navigating the forks of a given repository. I've noticed that whenever I look at trending repositories, if I try to look at the Forks on the web page, the Network Graph won't populate because there are far too many forks to display, and the Members graph appears to sort the users by the age of the fork as far as I can tell. One thing I'm often interested in when browsing through a repository I'm interested in is what kinds of interesting things other users have done with the forks they've taken off of the main repository. 
+This is a PowerShell script to aid in navigating the forks of a given repository. One thing I'm often interested in when browsing through a repository is what kinds of things other users have done with the forks they've taken off of the main repository. I've noticed that whenever I look at trending repositories, if I try to look at the Forks on the web page, the Network Graph won't populate because there are far too many forks to display and the Members graph appears to sort them by age as far as I can tell. 
 
 The purpose of this script is to use the GitHub API to sort through the forks and display them to the user by the most watches and forks. The user can navigate through the tree of forks to find one they're interested in, and open the repository in their default web browser.
 
 ## Initiating the Script
 
-This script requires an initial user input of the full name of the repository in the format, "<User>/<RepositoryName>". For example, once this repository inevitably starts to trend and has thousands of forks, I will want to use this script by passing in the parameter, "mjohn174/GitHub_ForkView". This can be done by entering the command directly after calling the script from PowerShell as seen below, or by entering it when prompted.
+This script requires an initial user input of the full name of the repository in the format, "<User>/<RepositoryName>". For example, once this repository inevitably goes viral and has thousands of forks, I will want to use this script by passing in the parameter, "mjohn174/GitHub_ForkView". This can be done by entering the command directly after calling the script from PowerShell as seen below, or by entering it when prompted.
 
 ####PS C:\Projects> GitHub_ForkView.ps1 mjohn174/GitHub_ForkView
 
