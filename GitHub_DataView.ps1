@@ -1,6 +1,11 @@
+Param(
+  [Parameter(Mandatory=$True,Position=1)]
+   [string]$FullName
+)
+
 #Initial Variables
 $baseReposURL='https://api.github.com/repos'
-$fullName='AHAAAAAAA/PokemonGo-Map'
+#$fullName='AHAAAAAAA/PokemonGo-Map'
 
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}" -f $Env:GITHUB_OAUTH_TOKEN)))
 $headers=@{Authorization=("Basic {0}" -f $base64AuthInfo)}
@@ -55,11 +60,10 @@ Function GetParentUserRepoURL{
 	return $value
 }
 
-$repoURL = "" + $baseReposURL + "/" + $fullName
+$repoURL = "" + $baseReposURL + "/" + $FullName
 
 $repo=$(GetRepo).Repo
 $forkArray=$(GetForks).ForkArray
-$forkArray
 
 $action = "";
 $newRepoIndex = -1; 
@@ -67,7 +71,7 @@ while ($action -ne "x"){
 	DisplayRepo
 	DisplayForkTable
 	
-	$action = Read-Host -Prompt "`nWhat action would you like to take? `nPossible Actions: `n`t(G)o to fork`n`te(X)it"
+	$action = Read-Host -Prompt "`nWhat action would you like to take? `nPossible Actions: `n`t(G)o to fork`n`t(O)pen Repository`n`te(X)it"
 	if ($action -eq "g"){
 		
 		$newRepoIndex = Read-Host -Prompt "Please select 0 to see Parent Repository or the index of the fork you would like to see"
@@ -81,6 +85,10 @@ while ($action -ne "x"){
 			$repoURL = $forkArray[$newRepoIndex].url
 			$repo=$(GetRepo).Repo
 			$forkArray=$(GetForks).ForkArray
-		}
+		}	
+	}
+	elseif ($action -eq "o"){
+		Invoke-Expression "cmd.exe /C start $($repo.html_url)"
+		$action = 'x'
 	}
 }
