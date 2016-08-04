@@ -21,7 +21,7 @@ Function GetRepo{
 }
 
 Function DisplayRepo{
-	Write-Host "`n`n`nRepository: "$repo.full_Name"`nDescription: "$repo.description"`nStars: "$repo.stargazers_count"`nForks: "$repo.forks_count
+	Write-Host "`n`n`nRepository: "$repo.full_Name"`nDescription: "$repo.description"`nWatchers: "$repo.watchers_count"`nForks: "$repo.forks_count
 	if ($parentUserRepo.ContainsKey($repo.url)){
 	Write-Host "Forked from: "$parentUserRepo.get_item("repo.url")}
 }
@@ -40,10 +40,10 @@ Function GetForks{
 }
 
 Function DisplayForkTable{
-	Write-Host "`n`nNumber`t`tUser`t`t`tStars`t`tForks`t`t"
+	Write-Host "`n`nNumber`t`tUser`t`t`tWatchers`t`tForks`t`t"
 
 	for ($i=1;$i -lt 11;$i++) {
-		Write-Host "$i`t`t"$forkArray[$i-1].owner.login"`t`t"$forkArray[$i-1].stargazers_count"`t`t"$forkArray[$i-1].forks_count
+		Write-Host "$i`t`t"$forkArray[$i-1].owner.login"`t`t"$forkArray[$i-1].watchers_count"`t`t"$forkArray[$i-1].forks_count
 	}
 }
 
