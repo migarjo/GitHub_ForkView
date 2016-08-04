@@ -14,6 +14,6 @@ Once the script has been initiated, a brief description of the repository will b
 
 ## Authentication
 
-The api methods being called by this script do not inherently require authentication unless the user would like to view private repositories, or use this script enough to exceed the quota of calls to GitHub's api (50 calls/hr). If a user needs authentication, they can [acquire a personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) set an environment variable at the command line with the following command. 
+The api methods being called by this script do not inherently require authentication unless the user would like to use this script enough to exceed the quota of calls to GitHub's api (50 calls/hr). If a user needs authentication, they can [acquire a personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) set an environment variable at the command line with the following command. 
 
 ####PS C:\Projects> [Environment]::SetEnvironmentVariable('GITHUB_OAUTH_TOKEN', <TOKEN>, 'User')
