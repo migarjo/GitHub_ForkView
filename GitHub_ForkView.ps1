@@ -49,9 +49,21 @@ Function GetForks{
 
 Function DisplayForkTable{
 	#Write-Host "`n`nNumber`t`tUser`t`t`tWatchers`t`tForks`t`t"
-
 	
-	$forkArray.ForEach({[PSCustomObject]$_}) | Format-Table -AutoSize
+	$forkTable = @()
+	$forkCt = 1;
+	foreach($fork in $forkArray){
+		$forkTableRecord = @{}
+		$forkTableRecord.Index = $forkCt;
+		$forkTableRecord.Login = $fork.owner.login
+		$forkTableRecord.Watchers = $fork.watchers_count
+		$forkTableRecord.Forks = $fork.forks_count
+		
+		$forkTable += $forkTableRecord
+		$forkCt++
+	}
+	
+	$forkTable.ForEach({[PSCustomObject]$_}) | Format-Table Index, Login, Watchers, Forks -AutoSize
 	
 	#for ($i=1;$i -lt 11;$i++) {
 	#	Write-Host "$i`t`t"$forkArray[$i-1].owner.login"`t`t"$forkArray[$i-1].watchers_count"`t`t"$forkArray[$i-1].forks_count
