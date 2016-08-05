@@ -34,17 +34,28 @@ Function GetForks{
 	  sort = 'stargazers'
 	}
 
-	$value.ForkArray=Invoke-RestMethod -headers $headers -uri $repo.forks_url -Body $value.Parameters
+	$value.fullForkArray=Invoke-RestMethod -headers $headers -uri $repo.forks_url -body $value.Parameters
 
+	$value.forkArray = @()
+	$value.forkCt = 0
+	Write-Host $value.fullForkArray[$value.forkCt].watchers_count;
+	while ($value.fullForkArray[$value.forkCt].watchers_count -gt 0 -And $value.forkCt -lt 10){
+		$value.forkArray += $value.fullForkArray[$value.forkCt]
+		$value.forkCt++
+	}
+	
 	return $value
 }
 
 Function DisplayForkTable{
-	Write-Host "`n`nNumber`t`tUser`t`t`tWatchers`t`tForks`t`t"
+	#Write-Host "`n`nNumber`t`tUser`t`t`tWatchers`t`tForks`t`t"
 
-	for ($i=1;$i -lt 11;$i++) {
-		Write-Host "$i`t`t"$forkArray[$i-1].owner.login"`t`t"$forkArray[$i-1].watchers_count"`t`t"$forkArray[$i-1].forks_count
-	}
+	
+	$forkArray.ForEach({[PSCustomObject]$_}) | Format-Table -AutoSize
+	
+	#for ($i=1;$i -lt 11;$i++) {
+	#	Write-Host "$i`t`t"$forkArray[$i-1].owner.login"`t`t"$forkArray[$i-1].watchers_count"`t`t"$forkArray[$i-1].forks_count
+	#}
 }
 
 Function GetParentUserRepoURL{
@@ -63,7 +74,7 @@ Function GetParentUserRepoURL{
 $repoURL = "" + $baseReposURL + "/" + $FullName
 
 $repo=$(GetRepo).Repo
-$forkArray=$(GetForks).ForkArray
+$forkArray=$(GetForks).forkArray
 
 $action = "";
 $newRepoIndex = -1; 
@@ -81,8 +92,8 @@ while ($action -ne "x"){
 			$forkArray=$(GetForks).ForkArray
 		}	
 		else {
-			$parentUserRepo.Set_Item($forkArray[$newRepoIndex].url,$repo.url)
-			$repoURL = $forkArray[$newRepoIndex].url
+			$parentUserRepo.Set_Item($forkArray[$newRepoIndex-1].url,$repo.url)
+			$repoURL = $forkArray[$newRepoIndex-1].url
 			$repo=$(GetRepo).Repo
 			$forkArray=$(GetForks).ForkArray
 		}	
