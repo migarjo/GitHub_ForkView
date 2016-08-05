@@ -16,14 +16,17 @@ $parentUserRepo=@{}
 Function GetRepo{
 	$value = @{}
 	$value.Repo=Invoke-RestMethod -headers $Headers -uri $repoURL
+					
 
 	return $value
 }
 
 Function DisplayRepo{
+	cls
 	Write-Host "`n`n`nRepository: "$repo.full_Name"`nDescription: "$repo.description"`nWatchers: "$repo.watchers_count"`nForks: "$repo.forks_count
 	if ($parentUserRepo.ContainsKey($repo.url)){
-	Write-Host "Forked from: "$parentUserRepo.get_item("repo.url")}
+	Write-Host "Forked from: "$(GetParentUserRepoURL).URL"`n`n"}
+	
 }
 
 Function GetForks{
