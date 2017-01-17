@@ -5,7 +5,7 @@ Param(
 
 #Initial Variables
 $baseReposURL='https://api.github.com/repos'
-#$fullName='AHAAAAAAA/PokemonGo-Map'
+#$fullName='twbs/bootstrap'
 
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}" -f $Env:GITHUB_OAUTH_TOKEN)))
 $headers=@{Authorization=("Basic {0}" -f $base64AuthInfo)}
